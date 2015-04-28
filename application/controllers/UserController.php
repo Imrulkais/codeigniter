@@ -11,7 +11,11 @@ class UserController extends CI_Controller {
 
         $this->load->model('user_model');
     }
-
+    
+    public function insertshow(){
+        $this->load->view('header');
+        $this->load->view('insert');
+    }
     public function Insert() {
         $this->load->view('header');
         $udata['name'] = $this->input->post('name');
@@ -19,6 +23,8 @@ class UserController extends CI_Controller {
         $udata['address'] = $this->input->post('address');
         $udata['password'] = $this->input->post('password');
         $this->user_model->insert_user_to_db($udata);
+        $this->session->set_flashdata('item', array('message' => 'Record created successfully', 'class' => 'success'));
+        redirect('UserController/insertshow');
     }
 
     public function ShowData() {
@@ -54,6 +60,15 @@ class UserController extends CI_Controller {
         $this->load->view('header');
         $data['alldata'] = $this->user_model->show_user_from_db();
         $this->load->view('Show', $data);
+    }
+    
+    public function admin() {
+        $this->load->view('header');
+        $this->load->view('admin');
+    }
+    public function SuperAdmin(){
+        
+        
     }
 
 }
