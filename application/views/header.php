@@ -31,7 +31,13 @@
                     <ul class="nav navbar-nav">
                         <li class="active"><a href="<?php echo base_url(); ?>test/working">Insert<span class="sr-only">(current)</span></a></li>
                         <li><a href="<?php echo base_url(); ?>UserController/ShowData">show data</a></li>
-                        <li><a href="<?php echo base_url(); ?>UserController/admin">Super admin</a></li>
+                        <li><a href="<?php echo base_url(); ?>UserController/admin">Login</a></li>
+                                    <?php
+            if (null !=$this->session->userdata('email')) {
+                ?>
+                        <li><a href="<?php echo base_url(); ?>UserController/adminpage">Admin</a></li>
+                       <?php } ?>
+
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Dropdown <span class="caret"></span></a>
                             <ul class="dropdown-menu" role="menu">
@@ -63,6 +69,7 @@
                                 <li><a href="#">Separated link</a></li>
                             </ul>
                         </li>
+                        <li><a href="<?php echo base_url(); ?>UserController/logout">Logout</a></li>
                     </ul>
                 </div><!-- /.navbar-collapse -->
             </div><!-- /.container-fluid -->

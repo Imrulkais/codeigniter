@@ -10,12 +10,14 @@ class UserController extends CI_Controller {
         parent::__construct();
 
         $this->load->model('user_model');
+        $this->load->library('pagination');
     }
-    
-    public function insertshow(){
+
+    public function insertshow() {
         $this->load->view('header');
         $this->load->view('insert');
     }
+
     public function Insert() {
         $this->load->view('header');
         $udata['name'] = $this->input->post('name');
@@ -29,8 +31,44 @@ class UserController extends CI_Controller {
 
     public function ShowData() {
         $this->load->view('header');
-        $data['alldata'] = $this->user_model->show_user_from_db();
+
+//        pagination
+
+        $config = array();
+        $config["base_url"] = base_url() . "UserController/ShowData";
+        $total_row = $this->user_model->record_count();
+        $config["total_rows"] = $total_row;
+        $config["per_page"] = 3;
+        //$config['use_page_numbers'] = TRUE;
+        $config['num_links'] = $total_row;
+        $config['full_tag_open'] = '<ul class="pagination">';
+        $config['full_tag_close'] = '</ul>';
+        $config['prev_link'] = '&laquo;';
+        $config['prev_tag_open'] = '<li>';
+        $config['prev_tag_close'] = '</li>';
+        $config['next_tag_open'] = '<li>';
+        $config['next_tag_close'] = '</li>';
+        $config['cur_tag_open'] = '<li class="active"><a href="#">';
+        $config['cur_tag_close'] = '</a></li>';
+        $config['num_tag_open'] = '<li>';
+        $config['num_tag_close'] = '</li>';
+        $config['next_link'] = 'Next';
+        $config['prev_link'] = 'Previous';
+        $config['uri_segment'] = 3;
+
+
+
+        $this->pagination->initialize($config);
+
+        $offset = $this->uri->segment(3);
+
+        $data['results'] = $this->user_model->show_user_from_db($offset);
+        echo $this->db->last_query();
         $this->load->view('Show', $data);
+
+//        end
+        // $data['alldata'] = $this->user_model->show_user_from_db();
+        // $this->load->view('Show', $data);
     }
 
     public function EditData($id) {
@@ -61,14 +99,16 @@ class UserController extends CI_Controller {
         $data['alldata'] = $this->user_model->show_user_from_db();
         $this->load->view('Show', $data);
     }
-    
+
     public function admin() {
         $this->load->view('header');
         $this->load->view('admin');
     }
-    public function SuperAdmin(){
-        
-        
+
+    public function logout() {
+        $this->session->set_flashdata('item', array('message' => 'You have successfully logged out', 'class' => 'success'));
+        $this->session->unset_userdata('email');
+        redirect('UserController/insertshow');
     }
 
 }
