@@ -9,7 +9,9 @@
                 <td class="active">Edit</td>
                 <td class="active">Delete</td>
             </tr>
-            <?php foreach ($results as $maindata) { ?>
+            <?php foreach ($results as $maindata) 
+                {
+                ?>
 
                 <tr>
                     <td class="active"><?php echo $maindata->name; ?></td>

@@ -18,6 +18,7 @@ class user_model extends CI_Model {
 //        $this->db->from('users');
 //        $query = $this->db->get();
 //        return $query->result();
+        //$offset = $this->uri->segment(3);
 
         $this->db->limit(3,$offset);
         //$this->db->where('id', $id);
@@ -56,11 +57,14 @@ class user_model extends CI_Model {
             $query = $this->db->update('users', $newdata);
         }
     }
-
+    
 //    delete data
-    public function delete_user_from_db($data) {
-
-        $this->db->delete('users', array('id' => $data));
+    public function delete_user_from_db() {
+        
+      $data=$this->uri->segment(3);
+      
+      $this->db->delete('users', array('id' => $data));
+      
     }
 
 }

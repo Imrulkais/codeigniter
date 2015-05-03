@@ -14,8 +14,10 @@ class UserController extends CI_Controller {
     }
 
     public function insertshow() {
-        $this->load->view('header');
-        $this->load->view('insert');
+        //$this->load->view('header');
+        //$this->load->view('insert');
+        $data['content'] = $this->load->view('insert', '', TRUE);
+        $this->load->view('master', $data);
     }
 
     public function Insert() {
@@ -30,8 +32,7 @@ class UserController extends CI_Controller {
     }
 
     public function ShowData() {
-        $this->load->view('header');
-
+        //$this->load->view('header');
 //        pagination
 
         $config = array();
@@ -61,10 +62,13 @@ class UserController extends CI_Controller {
         $this->pagination->initialize($config);
 
         $offset = $this->uri->segment(3);
+        //$offset = 0;
 
         $data['results'] = $this->user_model->show_user_from_db($offset);
         echo $this->db->last_query();
-        $this->load->view('Show', $data);
+        $data['content'] = $this->load->view('Show', $data, TRUE);
+        //print_r($data);
+        $this->load->view('master', $data);
 
 //        end
         // $data['alldata'] = $this->user_model->show_user_from_db();
@@ -92,17 +96,25 @@ class UserController extends CI_Controller {
         $this->load->view('Show', $data);
     }
 
-    public function DeleteData($id) {
+    public function DeleteData() {
 
-        $this->user_model->delete_user_from_db($id);
-        $this->load->view('header');
-        $data['alldata'] = $this->user_model->show_user_from_db();
-        $this->load->view('Show', $data);
+        //$id=$this->uri->segment(3);
+        $this->user_model->delete_user_from_db();
+        //$this->ShowData();
+        //die();
+        //die();
+        //$this->load->view('header');
+//        $data['results'] = $this->user_model->show_user_from_db();
+//        //$this->load->view('Show', $data);
+//        $data['content']=$this->load->view('Show', $data, TRUE);
+//        $this->load->view('master',$data);
     }
 
     public function admin() {
-        $this->load->view('header');
-        $this->load->view('admin');
+        // $this->load->view('header');
+        //$this->load->view('admin');
+        $data['content'] = $this->load->view('admin', '', TRUE);
+        $this->load->view('master', $data);
     }
 
     public function logout() {
