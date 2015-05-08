@@ -31,11 +31,11 @@ class AdminController extends CI_Controller {
             foreach ($data as $key => $value) {
 
                 if ($udata['email'] == $value->email && $udata['password'] == $value->password) {
-                    $this->session->set_userdata('email', '$value->email');
-                    redirect('UserController/insertshow');
+                    $this->session->set_userdata('email', $value->email);
+                    //redirect('UserController/insertshow');
                 }
                 else{
-                    redirect('UserController/admin');
+                   redirect('UserController/admin');
                 }
             }
         }

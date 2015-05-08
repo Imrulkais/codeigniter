@@ -10,6 +10,13 @@
 |
 */
 
+$hook['post_controller'] = array(
+        'class'    => 'myhooks',
+        'function' => 'hooks',
+        'filename' => 'myhooks.php',
+        'filepath' => 'hooks'
+        //'params'   => array('beer', 'wine', 'snacks')
+);
 
 
 /* End of file hooks.php */

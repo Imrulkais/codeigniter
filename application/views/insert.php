@@ -1,4 +1,8 @@
-
+<?php
+if (null == $this->session->userdata('email')) {
+    redirect('UserController/admin');
+}
+    ?>
 <div class="row">
     
     <div class="container">

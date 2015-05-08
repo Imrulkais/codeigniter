@@ -59,11 +59,9 @@ class user_model extends CI_Model {
     }
     
 //    delete data
-    public function delete_user_from_db() {
-        
-      $data=$this->uri->segment(3);
+    public function delete_user_from_db($id) {
       
-      $this->db->delete('users', array('id' => $data));
+      return $this->db->delete('users', array('id' => $id));
       
     }
 

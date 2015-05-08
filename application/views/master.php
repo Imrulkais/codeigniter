@@ -5,7 +5,9 @@
 
         <link rel="stylesheet" href="<?php echo base_url(); ?>css/bootstrap-theme.min.css">
 
-        <script src="<?php echo base_url(); ?>js/bootstrap.min.js"></script>
+        <!--<script src="<?php //echo base_url();  ?>js/bootstrap.min.js"></script>-->
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -29,17 +31,19 @@
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
-                        <li class="active"><a href="<?php echo base_url(); ?>test/working">Insert<span class="sr-only">(current)</span></a></li>
-                        <li><a href="<?php echo base_url(); ?>UserController/ShowData">show data</a></li>
                         <li><a href="<?php echo base_url(); ?>UserController/admin">Login</a></li>
                         <?php
                         if (null != $this->session->userdata('email')) {
                             ?>
-                            <li><a href="<?php echo base_url(); ?>UserController/adminpage">Admin</a></li>
+                            <li class="active"><a href="<?php echo base_url(); ?>UserController/insertshow">Insert<span class="sr-only">(current)</span></a></li>
+                            <li><a href="<?php echo base_url(); ?>UserController/ShowData">show data</a></li>
+
+
+                            <li><a href="<?php echo base_url(); ?>UserController/Upload">Upload file</a></li>
                         <?php } ?>
 
                         <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Dropdown <span class="caret"></span></a>
+                            <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Dropdown <span class="caret"></span></a>
                             <ul class="dropdown-menu" role="menu">
                                 <li><a href="#">Action</a></li>
                                 <li><a href="#">Another action</a></li>
@@ -69,17 +73,19 @@
                                 <li><a href="#">Separated link</a></li>
                             </ul>
                         </li>
-                        <li><a href="<?php echo base_url(); ?>UserController/logout">Logout</a></li>
+                        <?php
+                        if (null != $this->session->userdata('email')) {
+                            ?>
+                            <li><a href="<?php echo base_url(); ?>UserController/logout">Logout</a></li>
+                        <?php } ?>
                     </ul>
                 </div><!-- /.navbar-collapse -->
             </div><!-- /.container-fluid -->
         </nav>
-        <?php  //echo $this->load->view($content);
+        <?php
+        //echo $this->load->view($content);
         echo $content;
         ?>
     </body>
 
 </html>
-
-
-

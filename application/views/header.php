@@ -5,7 +5,7 @@
 
         <link rel="stylesheet" href="<?php echo base_url(); ?>css/bootstrap-theme.min.css">
 
-        <script src="<?php echo base_url(); ?>js/bootstrap.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 
         <meta name="viewport" content="width=device-width, initial-scale=1">
         

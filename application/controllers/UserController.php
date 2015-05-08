@@ -89,25 +89,19 @@ class UserController extends CI_Controller {
         $udata['address'] = $this->input->post('address');
         $password = $udata['password'] = $this->input->post('password');
         $this->user_model->update_user_to_db($udata);
-
+        $this->ShowData();
+        //redirect(UserController/insertshow);
 //        Showing all data
-        $this->load->view('header');
-        $data['alldata'] = $this->user_model->show_user_from_db();
-        $this->load->view('Show', $data);
+        // $this->load->view('header');
+        // $data['alldata'] = $this->user_model->show_user_from_db();
+        //$this->load->view('Show', $data);
     }
 
     public function DeleteData() {
 
-        //$id=$this->uri->segment(3);
-        $this->user_model->delete_user_from_db();
-        //$this->ShowData();
-        //die();
-        //die();
-        //$this->load->view('header');
-//        $data['results'] = $this->user_model->show_user_from_db();
-//        //$this->load->view('Show', $data);
-//        $data['content']=$this->load->view('Show', $data, TRUE);
-//        $this->load->view('master',$data);
+        $id = $this->uri->segment(3);
+        $this->user_model->delete_user_from_db($id);
+        redirect('UserController/ShowData');
     }
 
     public function admin() {
@@ -121,6 +115,48 @@ class UserController extends CI_Controller {
         $this->session->set_flashdata('item', array('message' => 'You have successfully logged out', 'class' => 'success'));
         $this->session->unset_userdata('email');
         redirect('UserController/insertshow');
+    }
+
+    public function Upload() {
+
+        $data['content'] = $this->load->view('upload', '', TRUE);
+        $this->load->view('master', $data);
+//        if(isset($_POST)) {
+//            $udata['name'] = $this->input->post('name');
+//        }
+    }
+
+    public function FinalUpload() {
+        // $this->load->library('upload');
+
+        $this->load->helper(array('form', 'url'));
+        $this->load->helper('form');
+        
+        $config['upload_path'] = 'files/';
+        $config['allowed_types'] = 'gif|jpg|png|doc|txt';
+        //$config['max_size'] = 100;
+        $config['max_width'] = 1024;
+        $config['max_height'] = 768;
+
+
+        $this->load->library('upload', $config);
+        //$this->upload->initialize($config);
+
+
+
+        if (!$this->upload->do_upload()) {
+            //redirect('UserController/insertshow');
+            //$this->load->view('upload_form', $error);
+            echo "now";
+        } else {
+            //$data = $this->upload->data();
+//        print_r($data);
+//        die();
+            // $error = array('error' => $this->upload->display_errors());
+            //$this->Upload();
+
+            echo "then";
+        }
     }
 
 }
