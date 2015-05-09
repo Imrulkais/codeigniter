@@ -128,35 +128,48 @@ class UserController extends CI_Controller {
 
     public function FinalUpload() {
         // $this->load->library('upload');
-
-        $this->load->helper(array('form', 'url'));
-        $this->load->helper('form');
+        $this->load->helper(array('html','url','file'));
         
-        $config['upload_path'] = 'files/';
+        //$config['upload_path'] = realpath(APPPATH.'../files/');
+       $config['upload_path'] = './files/';
         $config['allowed_types'] = 'gif|jpg|png|doc|txt';
-        //$config['max_size'] = 100;
+        $config['max_size'] = 100;
         $config['max_width'] = 1024;
         $config['max_height'] = 768;
 
 
         $this->load->library('upload', $config);
+        $this->upload->do_upload();
         //$this->upload->initialize($config);
-
-
-
-        if (!$this->upload->do_upload()) {
-            //redirect('UserController/insertshow');
-            //$this->load->view('upload_form', $error);
-            echo "now";
-        } else {
-            //$data = $this->upload->data();
+        //   //if (!$this->upload->do_upload()) {
+//        if(!$this->input->post('file')){
+//            echo "Please input the file";
+//        } else {
+//           // $data = $this->upload->data();
+//            $this->upload->do_upload();
+//            $data = $this->upload->data();
+//            //$data=$this->input->post('file');
 //        print_r($data);
-//        die();
-            // $error = array('error' => $this->upload->display_errors());
-            //$this->Upload();
+////        die();
+//            // $error = array('error' => $this->upload->display_errors());
+//            //$this->Upload();
+//
+//            echo "then";
+//        }
+        
+        if ( ! $this->upload->do_upload())
+		{
+			$error = array('error' => $this->upload->display_errors());
 
-            echo "then";
-        }
+			redirect('UserController/Upload');
+		}
+		else
+		{
+			$data = array('upload_data' => $this->upload->data());
+                        print_r($data);
+                        die();
+			$this->load->view('upload_success', $data);
+		}
     }
 
 }
